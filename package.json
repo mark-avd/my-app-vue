@@ -31,7 +31,16 @@
     "sass-loader": "^12.0.0",
     "typescript": "~4.5.5"
   },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ],
   "gitHooks": {
     "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,vue,ts,tsx}": "vue-cli-service lint"
   }
 }
