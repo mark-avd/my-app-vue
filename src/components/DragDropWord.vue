@@ -1,9 +1,6 @@
 <script lang="ts" setup>
 const props = defineProps<{
-  id: number
   text: string
-  index?: number
-  group?: 'start' | 'target'
 }>()
 </script>
 
@@ -21,9 +18,5 @@ const props = defineProps<{
   cursor: grab;
   margin: 5px;
   user-select: none;
-
-  &_dragging {
-    opacity: 0.5;
-  }
 }
 </style>

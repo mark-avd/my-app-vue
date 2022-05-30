@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import AnyIcon from '@/components/UI/AnyIcon.vue'
+import MyIcon from '@/components/UI/MyIcon.vue'
 </script>
 <template>
   <div class="loading-dummy">
-    <AnyIcon type="loading" />
+    <my-icon type="loading" />
   </div>
 </template>
 

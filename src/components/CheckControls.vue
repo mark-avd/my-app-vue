@@ -1,9 +1,15 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { useStore } from 'vuex'
 import CheckButton from '@/components/UI/CheckButton.vue'
 
+const store = useStore()
 const isCorrect = ref(false)
 const showStatus = ref(false)
+
+const checkSentence = () => {
+  store.dispatch('checkSentence', { isCorrect, showStatus })
+}
 </script>
 
 <template>
@@ -16,7 +22,7 @@ const showStatus = ref(false)
       class="check-controls__button-container"
       :class="{ 'check-controls__button-container_show-status': showStatus }"
     >
-      <check-button />
+      <check-button @click="checkSentence" />
     </div>
   </div>
 </template>

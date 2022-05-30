@@ -1,20 +1,22 @@
 <script lang="ts" setup>
+import { computed } from 'vue'
 import { useStore } from 'vuex'
-import AnyIcon from '@/components/UI/AnyIcon.vue'
+import MyIcon from '@/components/UI/MyIcon.vue'
 import TextBubble from '@/components/UI/TextBubble.vue'
 import LoadingDummy from '@/components/UI/LoadingDummy.vue'
 const store = useStore()
+const currentSentence = computed(() => store.state.currentSentence.ru)
 </script>
 
 <template>
   <div class="sentence-preview">
     <div class="sentence-preview__icon-container">
-      <any-icon type="person" />
+      <my-icon type="person" />
     </div>
     <div class="sentence-preview__text-bubble-container">
       <text-bubble>
         <loading-dummy v-if="store.state.loading" />
-        <p v-else>{{ store.state.currentSentence?.ru }}</p>
+        <p v-else>{{ currentSentence }}</p>
       </text-bubble>
     </div>
   </div>
