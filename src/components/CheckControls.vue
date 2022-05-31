@@ -20,13 +20,13 @@ const checkSentence = () => {
 
 <template>
   <div class="check-controls">
-    <div class="check-controls__status" :class="{ 'check-controls__status_correct': status.value }">
-      <p v-if="status.status">Correct!</p>
+    <div class="check-controls__status" :class="{ 'check-controls__status_correct': status }">
+      <p v-if="status">Correct!</p>
       <p v-else>Something is wrong!</p>
     </div>
     <div
       class="check-controls__button-container"
-      :class="{ 'check-controls__button-container_show-status': showStatus.value }"
+      :class="{ 'check-controls__button-container_show-status': showStatus }"
     >
       <my-button text="Check" @click="checkSentence" />
     </div>
