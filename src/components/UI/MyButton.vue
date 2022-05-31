@@ -1,5 +1,11 @@
+<script lang="ts" setup>
+const props = defineProps<{
+  text: string
+}>()
+</script>
+
 <template>
-  <button class="button">Check</button>
+  <button class="button">{{ text }}</button>
 </template>
 
 <style lang="scss">

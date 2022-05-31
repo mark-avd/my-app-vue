@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { onBeforeMount } from 'vue'
+import { onMounted } from 'vue'
 import { useStore } from 'vuex'
 import MyTemplate from '@/components/UI/MyTemplate.vue'
 import CheckControls from '@/components/CheckControls.vue'
 import DDWordsGroup from '@/components/DDWordsGroup.vue'
 const store = useStore()
-onBeforeMount(() =>
+onMounted(() =>
   store
     .dispatch('fetchSentences')
     .then(() => {

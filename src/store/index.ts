@@ -12,7 +12,7 @@ export default createStore<State>({
     sentences: [],
     currentSentence: { ru: '', en: '' },
     sentenceToCheck: '',
-    startWords: [],
+    initialWords: [],
     targetWords: [],
   },
   getters: {
@@ -43,7 +43,7 @@ export default createStore<State>({
       state.sentenceToCheck = sentence
     },
     setStartWords(state, wordsArray: DragItem[]) {
-      state.startWords = wordsArray
+      state.initialWords = wordsArray
     },
     setTargetWords(state, wordsArray: DragItem[]) {
       state.targetWords = wordsArray
@@ -60,20 +60,25 @@ export default createStore<State>({
       setTimeout(() => {
         commit('setLoading', true)
         commit('setTargetWords', [])
-        dispatch('changeCurrentSentence')
-        dispatch('makeStartWords')
+        dispatch('changeCurrentSentence').then(() => dispatch('makeStartWords'))
       }, 2000)
       setTimeout(() => commit('setLoading', false), 3000)
     },
-    checkSentence({ state, commit, dispatch }, payload) {
+    checkSentence(
+      { state, commit, dispatch },
+      payload: {
+        setStatus: (value: boolean) => void
+        setShowStatus: (show: boolean) => void
+      }
+    ) {
       commit('setSentenceToCheck', state.targetWords.map((word: DragItem) => word.text).join(' '))
       if (state.sentenceToCheck !== state.currentSentence.en) {
-        payload.setCorrect(false)
+        payload.setStatus(false)
       }
       if (state.sentenceToCheck === state.currentSentence.en) {
         const utterThis = new SpeechSynthesisUtterance(state.sentenceToCheck)
         utterThis.lang = 'en-US'
-        payload.setCorrect(true)
+        payload.setStatus(true)
         dispatch('renderNewSentence')
         if (!speechSynthesis.speaking) {
           speechSynthesis.speak(utterThis)
@@ -90,10 +95,10 @@ export default createStore<State>({
         const response = await fetchGraphQL()
         commit('setSentences', response.data.sentenceAll)
         commit('setResponseStatus', 'fulfilled')
-        commit('setLoading', false)
       } catch (error: unknown) {
-        commit('setResponseStatus', 'rejected')
         commit('setError', error)
+        commit('setResponseStatus', 'rejected')
+      } finally {
         commit('setLoading', false)
       }
     },

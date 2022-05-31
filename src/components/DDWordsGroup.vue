@@ -25,7 +25,7 @@ export default defineComponent({
   computed: {
     words: {
       get() {
-        return this.initial ? this.$store.state.startWords : this.$store.state.targetWords
+        return this.initial ? this.$store.state.initialWords : this.$store.state.targetWords
       },
       set(words: DragItem[]) {
         return this.initial
@@ -38,7 +38,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="words-group" v-if="loading">
+  <div class="words-group" v-if="loading && initial">
     <loading-dummy />
   </div>
   <draggable-component

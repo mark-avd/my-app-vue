@@ -1,36 +1,34 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { useStore } from 'vuex'
-import CheckButton from '@/components/UI/CheckButton.vue'
+import MyButton from '@/components/UI/MyButton.vue'
 
 const store = useStore()
-const isCorrect = ref(false)
+const status = ref(false)
 const showStatus = ref(false)
 
-const setCorrect = (status: boolean) => {
-  isCorrect.value = status
+const setStatus = (value: boolean) => {
+  status.value = value
 }
-
-const setShowStatus = (status: boolean) => {
-  showStatus.value = status
+const setShowStatus = (show: boolean) => {
+  showStatus.value = show
 }
-
 const checkSentence = () => {
-  store.dispatch('checkSentence', { setCorrect, setShowStatus })
+  store.dispatch('checkSentence', { setStatus, setShowStatus })
 }
 </script>
 
 <template>
   <div class="check-controls">
-    <div class="check-controls__status" :class="{ 'check-controls__status_correct': isCorrect }">
-      <p v-if="isCorrect">Correct!</p>
+    <div class="check-controls__status" :class="{ 'check-controls__status_correct': status.value }">
+      <p v-if="status.status">Correct!</p>
       <p v-else>Something is wrong!</p>
     </div>
     <div
       class="check-controls__button-container"
-      :class="{ 'check-controls__button-container_show-status': showStatus }"
+      :class="{ 'check-controls__button-container_show-status': showStatus.value }"
     >
-      <check-button @click="checkSentence" />
+      <my-button text="Check" @click="checkSentence" />
     </div>
   </div>
 </template>

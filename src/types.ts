@@ -23,6 +23,6 @@ export interface State {
   sentences: SentenceObject[]
   currentSentence: SentenceObject
   sentenceToCheck: string
-  startWords: DragItem[]
+  initialWords: DragItem[]
   targetWords: DragItem[]
 }
