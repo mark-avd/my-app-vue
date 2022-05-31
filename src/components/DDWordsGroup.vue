@@ -1,9 +1,9 @@
 <script lang="ts">
 import { computed, defineComponent, toRefs } from 'vue'
+import { useStore } from 'vuex'
 import draggableComponent from 'vuedraggable'
 import LoadingDummy from '@/components/UI/LoadingDummy.vue'
-import DragDropWord from '@/components/DragDropWord.vue'
-import store from '@/store'
+import DragDropWord from '@/components/UI/DragDropWord.vue'
 import { DragItem } from '@/types'
 
 export default defineComponent({
@@ -11,6 +11,7 @@ export default defineComponent({
     initial: Boolean,
   },
   setup(props) {
+    const store = useStore()
     const { initial } = toRefs(props)
     return {
       loading: computed(() => store.state.loading),
@@ -24,12 +25,12 @@ export default defineComponent({
   computed: {
     words: {
       get() {
-        return this.initial ? store.state.startWords : store.state.targetWords
+        return this.initial ? this.$store.state.startWords : this.$store.state.targetWords
       },
       set(words: DragItem[]) {
         return this.initial
-          ? store.commit('setStartWords', words)
-          : store.commit('setTargetWords', words)
+          ? this.$store.commit('setStartWords', words)
+          : this.$store.commit('setTargetWords', words)
       },
     },
   },
@@ -44,9 +45,10 @@ export default defineComponent({
     v-else
     class="words-group"
     ghost-class="words-group__word_moving"
-    v-model="words"
     group="words"
+    v-model="words"
     :animation="250"
+    :sort="!initial"
     :item-key="initial ? 'startWords' : 'targetWords'"
   >
     <template #item="{ element }">

@@ -1,27 +1,12 @@
-import { InjectionKey } from 'vue'
-import { createStore, useStore as baseUseStore, Store } from 'vuex'
+import { createStore } from 'vuex'
 import { fetchGraphQL } from '@/services/api'
 import { makeArrayWithIds } from '@/utils/makeArrayWithIds'
 import { shuffleArray } from '@/utils/shuffleArray'
-import { DragItem, SentenceObject } from '@/types'
-
-export interface State {
-  responseStatus: 'pending' | 'fulfilled' | 'rejected' | null
-  loading: boolean | null
-  error: unknown | null
-
-  sentences: SentenceObject[]
-  currentSentence: SentenceObject
-  sentenceToCheck: string
-  startWords: DragItem[]
-  targetWords: DragItem[]
-}
-
-export const key: InjectionKey<Store<State>> = Symbol()
+import { DragItem, SentenceObject, State } from '@/types'
 
 export default createStore<State>({
   state: {
-    loading: null,
+    loading: false,
     error: null,
     responseStatus: null,
     sentences: [],
@@ -30,7 +15,14 @@ export default createStore<State>({
     startWords: [],
     targetWords: [],
   },
-  getters: {},
+  getters: {
+    getRandomSentenceIndex(state) {
+      return Math.floor(Math.random() * state.sentences.length)
+    },
+    getWordsArray(state) {
+      return makeArrayWithIds(state.currentSentence.en.split(' '))
+    },
+  },
   mutations: {
     setResponseStatus(state, status: 'pending' | 'fulfilled' | 'rejected' | null) {
       state.responseStatus = status
@@ -58,14 +50,11 @@ export default createStore<State>({
     },
   },
   actions: {
-    changeCurrentSentence({ state, commit }) {
-      const randomSentenceIndex = Math.floor(Math.random() * state.sentences.length)
-      commit('setCurrentSentence', state.sentences[randomSentenceIndex])
+    changeCurrentSentence({ state, commit, getters }) {
+      commit('setCurrentSentence', state.sentences[getters.getRandomSentenceIndex])
     },
-    makeStartWords({ state, commit }) {
-      const words = state.currentSentence.en.split(' ')
-      const wordsArray = makeArrayWithIds(shuffleArray(words))
-      commit('setStartWords', wordsArray)
+    makeStartWords({ commit, getters }) {
+      commit('setStartWords', shuffleArray(getters.getWordsArray))
     },
     renderNewSentence({ commit, dispatch }) {
       setTimeout(() => {
@@ -79,25 +68,19 @@ export default createStore<State>({
     checkSentence({ state, commit, dispatch }, payload) {
       commit('setSentenceToCheck', state.targetWords.map((word: DragItem) => word.text).join(' '))
       if (state.sentenceToCheck !== state.currentSentence.en) {
-        payload.isCorrect.value = false
+        payload.setCorrect(false)
       }
       if (state.sentenceToCheck === state.currentSentence.en) {
         const utterThis = new SpeechSynthesisUtterance(state.sentenceToCheck)
         utterThis.lang = 'en-US'
-        payload.isCorrect.value = true
+        payload.setCorrect(true)
         dispatch('renderNewSentence')
         if (!speechSynthesis.speaking) {
           speechSynthesis.speak(utterThis)
         }
       }
-      payload.showStatus.value = true
-      setTimeout(() => (payload.showStatus.value = false), 1500)
-    },
-    sortStartWords({ state, commit }) {
-      commit(
-        'setStartWords',
-        state.startWords.sort((a, b) => a.id - b.id)
-      )
+      payload.setShowStatus(true)
+      setTimeout(() => payload.setShowStatus(false), 1500)
     },
     async fetchSentences({ commit }) {
       commit('setResponseStatus', 'pending')
@@ -117,7 +100,3 @@ export default createStore<State>({
   },
   modules: {},
 })
-
-export function useStore() {
-  return baseUseStore(key)
-}

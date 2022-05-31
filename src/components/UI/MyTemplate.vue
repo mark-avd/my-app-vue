@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import SentencePreview from '@/components/SentencePreview.vue'
 </script>
 

@@ -7,8 +7,16 @@ const store = useStore()
 const isCorrect = ref(false)
 const showStatus = ref(false)
 
+const setCorrect = (status: boolean) => {
+  isCorrect.value = status
+}
+
+const setShowStatus = (status: boolean) => {
+  showStatus.value = status
+}
+
 const checkSentence = () => {
-  store.dispatch('checkSentence', { isCorrect, showStatus })
+  store.dispatch('checkSentence', { setCorrect, setShowStatus })
 }
 </script>
 

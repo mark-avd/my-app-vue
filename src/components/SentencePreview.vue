@@ -4,6 +4,7 @@ import { useStore } from 'vuex'
 import MyIcon from '@/components/UI/MyIcon.vue'
 import TextBubble from '@/components/UI/TextBubble.vue'
 import LoadingDummy from '@/components/UI/LoadingDummy.vue'
+
 const store = useStore()
 const currentSentence = computed(() => store.state.currentSentence.ru)
 </script>
