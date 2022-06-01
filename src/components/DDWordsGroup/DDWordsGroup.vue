@@ -2,9 +2,10 @@
 import { computed, defineComponent, toRefs } from 'vue'
 import { useStore } from 'vuex'
 import draggableComponent from 'vuedraggable'
-import LoadingDummy from '@/components/UI/LoadingDummy.vue'
-import DragDropWord from '@/components/UI/DragDropWord.vue'
+import LoadingDummy from '@/components/UI/LoadingDummy/LoadingDummy.vue'
+import DragDropWord from '@/components/UI/DragDropWord/DragDropWord.vue'
 import { DragItem } from '@/types'
+import './styles.scss'
 
 export default defineComponent({
   props: {
@@ -56,20 +57,3 @@ export default defineComponent({
     </template>
   </draggable-component>
 </template>
-
-<style lang="scss">
-.words-group {
-  align-content: flex-start;
-  border-top: 1px solid #030303;
-  display: flex;
-  flex-wrap: wrap;
-  min-height: 110px;
-  padding: 6px;
-
-  &__word_moving {
-    opacity: 0.5;
-    background: #f7fafc;
-    border: 1px solid #4299e1;
-  }
-}
-</style>

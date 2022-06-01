@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import './styles.scss'
 const props = defineProps<{
   text: string
 }>()
@@ -9,14 +10,3 @@ const props = defineProps<{
     <p>{{ text }}</p>
   </div>
 </template>
-
-<style>
-.word {
-  background: #fff;
-  border: 1px solid #949494;
-  border-radius: 12px;
-  cursor: grab;
-  margin: 5px;
-  user-select: none;
-}
-</style>

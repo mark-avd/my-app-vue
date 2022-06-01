@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { useStore } from 'vuex'
-import MyButton from '@/components/UI/MyButton.vue'
+import MyButton from '@/components/UI/MyButton/MyButton.vue'
+import './styles.scss'
 
 const store = useStore()
 const status = ref(false)
@@ -32,31 +33,3 @@ const checkSentence = () => {
     </div>
   </div>
 </template>
-
-<style lang="scss">
-.check-controls {
-  height: 120px;
-  margin-top: 16px;
-
-  &__status {
-    color: #f31616;
-    display: flex;
-    font-weight: 600;
-    justify-content: center;
-
-    &_correct {
-      color: #17d217;
-    }
-  }
-
-  &__button-container {
-    margin: -40px auto 0;
-    transition: transform 500ms ease;
-    width: 60%;
-
-    &_show-status {
-      transform: translate3d(0, 50px, 0);
-    }
-  }
-}
-</style>

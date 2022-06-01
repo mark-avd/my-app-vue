@@ -1,18 +1,3 @@
-<script lang="ts" setup>
-import SentencePreview from '@/components/SentencePreview.vue'
-</script>
-
-<template>
-  <div class="my-template">
-    <h1 class="my-template__header">Translate this sentence</h1>
-    <div class="my-template__sentence-preview">
-      <sentence-preview />
-    </div>
-    <slot />
-  </div>
-</template>
-
-<style lang="scss">
 .my-template {
   display: flex;
   flex-direction: column;
@@ -45,4 +30,3 @@ import SentencePreview from '@/components/SentencePreview.vue'
     margin-bottom: 12px;
   }
 }
-</style>

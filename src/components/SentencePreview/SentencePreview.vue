@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
-import MyIcon from '@/components/UI/MyIcon.vue'
-import TextBubble from '@/components/UI/TextBubble.vue'
-import LoadingDummy from '@/components/UI/LoadingDummy.vue'
+import MyIcon from '@/components/UI/MyIcon/MyIcon.vue'
+import TextBubble from '@/components/UI/TextBubble/TextBubble.vue'
+import LoadingDummy from '@/components/UI/LoadingDummy/LoadingDummy.vue'
+import './styles.scss'
 
 const store = useStore()
 const currentSentence = computed(() => store.state.currentSentence.ru)
@@ -22,25 +23,3 @@ const currentSentence = computed(() => store.state.currentSentence.ru)
     </div>
   </div>
 </template>
-
-<style lang="scss">
-.sentence-preview {
-  display: flex;
-  margin-top: 16px;
-  padding: 0 12px;
-
-  &__icon-container {
-    width: 40%;
-
-    img {
-      padding-top: 12px;
-      width: 90%;
-    }
-  }
-
-  &__text-bubble-container {
-    margin: 0 0 12px 12px;
-    width: 60%;
-  }
-}
-</style>

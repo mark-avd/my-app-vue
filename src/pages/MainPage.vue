@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { onMounted } from 'vue'
 import { useStore } from 'vuex'
-import MyTemplate from '@/components/UI/MyTemplate.vue'
-import CheckControls from '@/components/CheckControls.vue'
-import DDWordsGroup from '@/components/DDWordsGroup.vue'
+import MyTemplate from '@/components/UI/MyTemplate/MyTemplate.vue'
+import CheckControls from '@/components/CheckControls/CheckControls.vue'
+import DDWordsGroup from '@/components/DDWordsGroup/DDWordsGroup.vue'
 const store = useStore()
 onMounted(() =>
   store
