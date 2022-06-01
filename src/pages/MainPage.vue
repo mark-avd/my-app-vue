@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { onMounted } from 'vue'
-import { useStore } from 'vuex'
+import { useStore } from '@/store'
 import MyTemplate from '@/components/UI/MyTemplate/MyTemplate.vue'
 import CheckControls from '@/components/CheckControls/CheckControls.vue'
 import DDWordsGroup from '@/components/DDWordsGroup/DDWordsGroup.vue'

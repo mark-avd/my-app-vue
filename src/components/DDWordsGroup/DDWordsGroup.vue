@@ -1,6 +1,6 @@
 <script lang="ts">
 import { computed, defineComponent, toRefs } from 'vue'
-import { useStore } from 'vuex'
+import { useStore } from '@/store'
 import draggableComponent from 'vuedraggable'
 import LoadingDummy from '@/components/UI/LoadingDummy/LoadingDummy.vue'
 import DragDropWord from '@/components/UI/DragDropWord/DragDropWord.vue'
@@ -15,7 +15,7 @@ export default defineComponent({
     const store = useStore()
     const { initial } = toRefs(props)
     return {
-      loading: computed(() => store.state.loading),
+      loading: computed(() => store.state.fetchStore.loading),
     }
   },
   components: {
@@ -26,7 +26,9 @@ export default defineComponent({
   computed: {
     words: {
       get() {
-        return this.initial ? this.$store.state.initialWords : this.$store.state.targetWords
+        return this.initial
+          ? this.$store.state.sentenceStore.initialWords
+          : this.$store.state.sentenceStore.targetWords
       },
       set(words: DragItem[]) {
         return this.initial

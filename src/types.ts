@@ -15,11 +15,18 @@ export type DragItem = {
   text: string
 }
 
-export interface State {
+export interface RootState {
+  fetchStore: FetchState
+  sentenceStore: SentenceState
+}
+
+export interface FetchState {
   responseStatus: 'pending' | 'fulfilled' | 'rejected' | null
   loading: boolean
   error: unknown | null
+}
 
+export interface SentenceState {
   sentences: SentenceObject[]
   currentSentence: SentenceObject
   sentenceToCheck: string

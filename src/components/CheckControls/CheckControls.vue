@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { useStore } from 'vuex'
+import { useStore } from '@/store'
 import MyButton from '@/components/UI/MyButton/MyButton.vue'
 import './styles.scss'
 
