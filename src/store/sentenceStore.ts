@@ -2,6 +2,7 @@ import { Module } from 'vuex'
 import { makeArrayWithIds } from '@/utils/makeArrayWithIds'
 import { shuffleArray } from '@/utils/shuffleArray'
 import { DragItem, RootState, SentenceObject, SentenceState } from '@/types'
+import { LOADING_DURATION, NEW_SENTENCE_DELAY, STATUS_DISPLAY_DURATION } from '@/constants'
 
 const sentenceStore: Module<SentenceState, RootState> = {
   state: {
@@ -48,8 +49,8 @@ const sentenceStore: Module<SentenceState, RootState> = {
         commit('setLoading', true)
         commit('setTargetWords', [])
         dispatch('changeCurrentSentence').then(() => dispatch('makeStartWords'))
-      }, 2000)
-      setTimeout(() => commit('setLoading', false), 3000)
+      }, NEW_SENTENCE_DELAY)
+      setTimeout(() => commit('setLoading', false), LOADING_DURATION)
     },
     checkSentence(
       { state, commit, dispatch },
@@ -72,7 +73,7 @@ const sentenceStore: Module<SentenceState, RootState> = {
         }
       }
       payload.setShowStatus(true)
-      setTimeout(() => payload.setShowStatus(false), 1500)
+      setTimeout(() => payload.setShowStatus(false), STATUS_DISPLAY_DURATION)
     },
   },
 }
